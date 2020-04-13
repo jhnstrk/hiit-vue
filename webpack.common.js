@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
   entry: './src/index.ts',
@@ -9,13 +10,21 @@ module.exports = {
       {
         // Typescript
         test: /\.tsx?$/,
-        use: 'ts-loader',
+        loader: "ts-loader",
+        options: {
+          appendTsSuffixTo: [/\.vue$/]
+        },
         exclude: /node_modules/,
+      },
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader',
       },
       {
         // CSS
         test: /\.css$/,
         use: [
+              'vue-style-loader',
               'style-loader',
               MiniCssExtractPlugin.loader,
               'css-loader',
@@ -38,7 +47,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: [ '.tsx', '.ts', '.js' ],
+    extensions: [ '.tsx', '.ts', '.js', '.vue' ],
   },
   devServer: {
     contentBase: path.join(__dirname, 'public')
@@ -48,6 +57,7 @@ module.exports = {
     path: path.resolve(__dirname, 'public'),
   },
   plugins: [
+    new VueLoaderPlugin(),
     new MiniCssExtractPlugin({
       filename: "style.[contenthash].css"
     }),
