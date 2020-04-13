@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="<%=htmlWebpackPlugin.files.chunks.main.css %>">
+    <title>Pendulum App</title>
+  </head>
+  <body>
+    <div id="container1">
+      <div id="canvasdiv">
+        <canvas id="mycanvas"></canvas>
+      </div>
+      <div id="container2">
+        <button id="start" type="button">Start</button>
+        <button id="faster" type="button">Faster</button>
+        <button id="slower" type="button">Slower</button>
+      </div>
+    </div>
+    <script src="<%= htmlWebpackPlugin.files.chunks.main.entry %>">
+    </script>
+  </body>
+</html>
