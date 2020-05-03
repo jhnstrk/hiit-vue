@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import ActivityList from "./ActivityList";
+import ActivityList from "./ActivityList.vue";
 
 export default Vue.extend({
   name: 'App',
