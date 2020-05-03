@@ -44,7 +44,16 @@ module.exports = {
              'file-loader',
              ],
       },
-    ],
+      {
+        // Audio
+        test: /\.(mp3|ogg|wav)$/,
+        loader: 'file-loader',
+        options: {
+          name: '[path][name].[ext]'
+        },
+        exclude: /node_modules/,
+      },
+      ],
   },
   resolve: {
     extensions: [ '.tsx', '.ts', '.js', '.vue' ],

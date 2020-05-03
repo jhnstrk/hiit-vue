@@ -10,10 +10,15 @@
 import Vue from 'vue';
 import ActivityList from "./ActivityList.vue";
 
-export default Vue.extend({
-  name: 'App',
-  components: { ActivityList }
+import { Component } from 'vue-property-decorator';
+
+@Component({
+  components: {
+    ActivityList,
+  }
 })
+export default class App extends Vue {
+}
 </script>
 
 <style>

@@ -10,20 +10,27 @@
 import Vue from 'vue';
 // https://www.npmjs.com/package/vuedraggable
 import draggable from 'vuedraggable';
-import { IActivity } from './data_model';
+import { activityModel, IActivity } from './data_model';
+import { Component } from 'vue-property-decorator';
 
-export default Vue.extend({
-  name:  'ActivityList',
-  data: () => { 
-    return {
-    myArray: [
-    { id: 0, name: 'Zero activity', duration_sec: 30 },
-    { id: 1, name: 'One activity', duration_sec: 30 },
-    { id: 2, name: 'Two activity', duration_sec: 30 },
-  ] } ; 
-  },
-  components: { draggable },
+@Component({
+  components: {
+    draggable,
+  }
 })
+export default class ActivityList extends Vue {
+  myArray?: Array<IActivity>;
+
+  data() { 
+    return {
+    myArray: activityModel.workout
+     } ; 
+  }
+
+  updated() {
+    console.log(`Udpated ${JSON.stringify(this.myArray)}`);
+  } 
+}
 </script>
 
 <style scoped>

@@ -16,3 +16,11 @@ const vm = new Vue({
   template: "<App/>",
   components: { App }
 });
+
+window.onload = () => {
+  myaudio.loadSoundAssets()
+  .then( ()=> {
+    if (myaudio.pingSound)
+       myaudio.playBuffer(myaudio.pingSound);
+  });
+}

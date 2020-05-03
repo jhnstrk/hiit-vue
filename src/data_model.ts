@@ -6,12 +6,16 @@ export interface IActivity {
 }
 
 export class ActivityModel {
-    private warmup: Array< IActivity > | null = null;
-    private workout: Array< IActivity >;
-    private cooldown: Array< IActivity > | null = null;
+    warmup?: Array< IActivity >;
+    workout: Array< IActivity >;
+    cooldown?: Array< IActivity >;
 
     constructor() {
-        this.workout = new Array<IActivity>();
+        this.workout = [
+            { id: 0, name: 'Zero activity', duration_sec: 30 },
+            { id: 1, name: 'One activity', duration_sec: 30 },
+            { id: 2, name: 'Two activity', duration_sec: 30 },
+          ];
     }
 
     public hasWarmup(): boolean {
@@ -22,3 +26,5 @@ export class ActivityModel {
         return (this.cooldown === null);
     }
 }
+
+export const activityModel = new ActivityModel();
