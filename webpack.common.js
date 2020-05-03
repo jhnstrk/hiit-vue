@@ -8,6 +8,10 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+      },
+      {
         // Typescript
         test: /\.tsx?$/,
         loader: "ts-loader",
@@ -15,10 +19,6 @@ module.exports = {
           appendTsSuffixTo: [/\.vue$/]
         },
         exclude: /node_modules/,
-      },
-      {
-        test: /\.vue$/,
-        loader: 'vue-loader',
       },
       {
         // CSS
@@ -48,6 +48,11 @@ module.exports = {
   },
   resolve: {
     extensions: [ '.tsx', '.ts', '.js', '.vue' ],
+    alias: {
+      'vue$': 'vue/dist/vue.esm.js',
+      '@': path.resolve(__dirname,'src'),
+      'components': path.resolve(__dirname,'src/components'),
+    }
   },
   devServer: {
     contentBase: path.join(__dirname, 'public')
@@ -62,8 +67,8 @@ module.exports = {
       filename: "style.[contenthash].css"
     }),
     new HtmlWebpackPlugin({
-      inject: false,
-      hash: true,
+      inject: true,
+      hash: false,
       template: "./src/index.html",
       filename: "index.html"
     }),
