@@ -1,13 +1,8 @@
 import "./style.css";
 
-import { EDAudioPlay } from "./ed_audio_play";
-import { ActivityModel } from "./data_model";
-
-const myaudio: EDAudioPlay = new EDAudioPlay();
-
 import Vue from "vue";
 import App from "./App";
-// import ActivityList from "./ActivityList";
+import { theController } from "./controller";
 
 Vue.config.productionTip = false;
 
@@ -18,9 +13,9 @@ const vm = new Vue({
 });
 
 window.onload = () => {
-  myaudio.loadSoundAssets()
+  theController.initSound()
   .then( ()=> {
-    if (myaudio.pingSound)
-       myaudio.playBuffer(myaudio.pingSound);
+     // 
+     console.log('Sound ready');
   });
 }

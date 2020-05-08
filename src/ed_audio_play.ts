@@ -1,18 +1,21 @@
 // const AudioContext = window.AudioContext; // || window.webkitAudioContext;
 
-const beepPing = require('../assets/beep-ping.mp3');
+const beepPingAsset = require('../assets/beep-ping.mp3');
+const dingAsset = require('../assets/robot-blip2.mp3');
 
 export class EDAudioPlay {
   private channels = 2; // Stereo
   private audioCtx: AudioContext;
   public pingSound?: AudioBuffer;
+  public dingSound?: AudioBuffer;
 
   constructor() {
       this.audioCtx = new AudioContext();
   }
 
   async loadSoundAssets() {
-    this.pingSound = await this.loadSound(beepPing.default);
+    this.pingSound = await this.loadSound(beepPingAsset.default);
+    this.dingSound = await this.loadSound(dingAsset.default);
   }
 
   async getArrayBuffer(url: string): Promise<ArrayBuffer> {
@@ -49,8 +52,8 @@ export class EDAudioPlay {
     }
   }
 
-  public playBuffer(thebuffer: AudioBuffer): void {
-            // Get an AudioBufferSourceNode.
+  public playBuffer(thebuffer: AudioBuffer, time?: number): void {
+      // Get an AudioBufferSourceNode.
       // This is the AudioNode to use when we want to play an AudioBuffer
       const source = this.audioCtx.createBufferSource();
 
@@ -60,6 +63,10 @@ export class EDAudioPlay {
       // destination so we can hear the sound
       source.connect(this.audioCtx.destination);
 
-      source.start();
+      source.start(time);
+  }
+
+  public now() : number {
+    return this.audioCtx.currentTime;
   }
 }

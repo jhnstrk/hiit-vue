@@ -1,16 +1,25 @@
 <template>
+<form @submit.prevent="onSubmit">
 <div id="thelist">
-<draggable v-model="myArray" group="people" @start="drag=true" @end="drag=false">
-   <div v-for="element in myArray" :key="element.id">{{element.name}}</div>
+<draggable v-model="workout" group="people" @start="drag=true" @end="drag=false">
+  <div v-for="element in workout" :key="element.id">
+     <div>{{element.name}}</div>
+     <input v-model.number="element.durationSec" type="number" step="5">
+     <button v-on:click="onRemove( element.id )" v-bind:key="element.id">Remove</button>
+  </div>
 </draggable>
+  <button v-on:click="onAdd">New Item</button>
+  <button v-on:click="onGo" type="button">Go</button>
 </div>
+</form>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 // https://www.npmjs.com/package/vuedraggable
 import draggable from 'vuedraggable';
-import { activityModel, IActivity } from './data_model';
+import { IActivity } from './data_model';
+import { theController } from './controller';
 import { Component } from 'vue-property-decorator';
 
 @Component({
@@ -19,17 +28,29 @@ import { Component } from 'vue-property-decorator';
   }
 })
 export default class ActivityList extends Vue {
-  myArray?: Array<IActivity>;
-
   data() { 
     return {
-    myArray: activityModel.workout
-     } ; 
+      workout: theController.model.workout
+    }; 
+  }
+
+  onAdd() {
+      theController.model.newActivity();
+  }
+
+  onRemove(id: number) {
+    console.log(`remove ${JSON.stringify(id)}`);
+    theController.model.removeActivity(id);
   }
 
   updated() {
-    console.log(`Udpated ${JSON.stringify(this.myArray)}`);
+    console.log(`Udpated ${JSON.stringify(theController.model.workout)}`);
   } 
+
+  onGo() {
+    console.log('Go!');
+    theController.runActivities();
+  }
 }
 </script>
 

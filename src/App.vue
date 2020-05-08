@@ -3,6 +3,7 @@
     <p>Some text in the app template</p>
     <!-- <img src="./assets/logo.png"> -->
     <activity-list/>
+    <p>{{Math.max(Math.round(remainingTime),0)}}</p>
   </div>
 </template>
 
@@ -11,6 +12,7 @@ import Vue from 'vue';
 import ActivityList from "./ActivityList.vue";
 
 import { Component } from 'vue-property-decorator';
+import { theController } from './controller';
 
 @Component({
   components: {
@@ -18,6 +20,10 @@ import { Component } from 'vue-property-decorator';
   }
 })
 export default class App extends Vue {
+    data() { 
+    return theController.viewModel; 
+  }
+
 }
 </script>
 
