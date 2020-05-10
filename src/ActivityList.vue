@@ -4,8 +4,9 @@
   <div  id="thelist">
 <draggable v-model="workout" group="people" @start="drag=true" @end="drag=false">
   <div v-for="element in workout" :key="element.id">
-     <div class="list-item" v-bind:class="{ active: state.activeId === element.id }">{{element.name}}
-     <input v-model.number="element.durationSec" type="number" step="5">
+     <div class="list-item" v-bind:class="{ active: state.activeId === element.id }">
+     <input v-model="element.name" :size="element.name.length">
+     <input v-model.number="element.durationSec" type="number" step="5" size="3">
      <button v-on:click="onRemove( element.id )" v-bind:key="element.id">Remove</button>
      </div>
   </div>
@@ -64,10 +65,14 @@ p {
   text-align: center;
 }
 
+/*
 input {
   width: 5em;
 }
-
+*/
+input[type=number]{
+    width: 3em;
+} 
 form {
   background-color: lightgray;
   width: fit-content;

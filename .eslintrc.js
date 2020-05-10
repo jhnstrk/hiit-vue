@@ -3,15 +3,13 @@ module.exports = {
     parserOptions: {
 		project: './tsconfig.json'
 	},
-    "plugins": ["@typescript-eslint"],
+    "plugins": ["import", "@typescript-eslint"],
     "rules": {
         '@typescript-eslint/array-type': ['warn', {default: 'generic'}],
+        "indent": ["error", 2],
     },
     "extends": [
-        "eslint:recommended",
         'plugin:vue/vue3-recommended',
-        "plugin:@typescript-eslint/eslint-recommended",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:@typescript-eslint/recommended-requiring-type-checking"
+        "airbnb-typescript/base"
     ],
 };
