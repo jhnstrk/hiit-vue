@@ -1,13 +1,16 @@
 <template>
 <form @submit.prevent="onSubmit">
-<div id="thelist">
+<div>
+  <div  id="thelist">
 <draggable v-model="workout" group="people" @start="drag=true" @end="drag=false">
   <div v-for="element in workout" :key="element.id">
-     <div>{{element.name}}</div>
+     <div class="list-item" v-bind:class="{ active: state.activeId === element.id }">{{element.name}}
      <input v-model.number="element.durationSec" type="number" step="5">
      <button v-on:click="onRemove( element.id )" v-bind:key="element.id">Remove</button>
+     </div>
   </div>
 </draggable>
+  </div>
   <button v-on:click="onAdd">New Item</button>
   <button v-on:click="onGo" type="button">Go</button>
 </div>
@@ -30,7 +33,8 @@ import { Component } from 'vue-property-decorator';
 export default class ActivityList extends Vue {
   data() { 
     return {
-      workout: theController.model.workout
+      workout: theController.model.workout,
+      state: theController.viewModel
     }; 
   }
 
@@ -59,4 +63,22 @@ p {
   font-size: 2em;
   text-align: center;
 }
+
+input {
+  width: 5em;
+}
+
+.active {
+  background-color: aqua;
+}
+
+#thelist {
+  max-height: 500px;
+  overflow: scroll;
+}
+/*
+.list-item {
+  float: right;
+}
+*/
 </style>

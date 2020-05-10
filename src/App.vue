@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <p>Some text in the app template</p>
+    <p>Super-dooper HIIT helper</p>
     <!-- <img src="./assets/logo.png"> -->
     <activity-list/>
     <p>{{Math.max(Math.round(remainingTime),0)}}</p>

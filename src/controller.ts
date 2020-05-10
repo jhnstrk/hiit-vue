@@ -11,7 +11,8 @@ interface ICurrentState {
 }
 
 interface IViewState {
-    remainingTime: number;
+    remainingTime: number;   // Time left in current activity
+    activeId: number;        // ID of current activity.
 }
 
 export class Controller {
@@ -26,6 +27,7 @@ export class Controller {
         this.audio = new EDAudioPlay();
         this.viewModel = <IViewState> {
             remainingTime: 0,
+            activeId: -1,
         };
     }
 
@@ -53,8 +55,7 @@ export class Controller {
     }
 
     private updateState() {
-        let duration;
-        console.log(JSON.stringify(this.state));
+        // console.log(JSON.stringify(this.state));
 
         const s = this.state;
         if (!s) {
@@ -111,6 +112,11 @@ export class Controller {
         }
 
         this.viewModel.remainingTime = nextTime - now;
+        if (current) {
+            this.viewModel.activeId = current.id;
+        } else {
+            this.viewModel.activeId = -1;
+        }
         s.lastUpdate = now;
     }
 
