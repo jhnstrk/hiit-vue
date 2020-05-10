@@ -1,6 +1,6 @@
 <template>
+<div id="outer">
 <form @submit.prevent="onSubmit">
-<div>
   <div  id="thelist">
 <draggable v-model="workout" group="people" @start="drag=true" @end="drag=false">
   <div v-for="element in workout" :key="element.id">
@@ -13,8 +13,8 @@
   </div>
   <button v-on:click="onAdd">New Item</button>
   <button v-on:click="onGo" type="button">Go</button>
-</div>
 </form>
+</div>
 </template>
 
 <script lang="ts">
@@ -68,6 +68,10 @@ input {
   width: 5em;
 }
 
+form {
+  background-color: lightgray;
+  width: fit-content;
+}
 .active {
   background-color: aqua;
 }
@@ -75,6 +79,22 @@ input {
 #thelist {
   max-height: 500px;
   overflow: scroll;
+}
+
+#outer {
+    width: 100%;
+  /* Firefox */
+  display: -moz-box;
+  -moz-box-pack: center;
+  -moz-box-align: center;
+  /* Safari and Chrome */
+  display: -webkit-box;
+  -webkit-box-pack: center;
+  -webkit-box-align: center;
+  /* W3C */
+  display: box;
+  box-pack: center;
+  box-align: center;
 }
 /*
 .list-item {

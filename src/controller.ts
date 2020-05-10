@@ -1,4 +1,4 @@
-import { ActivityModel, IActivity } from "./data_model";
+import { ActivityModel, IActivity, ActivityType } from "./data_model";
 import { EDAudioPlay } from "./ed_audio_play";
 import {TextToSpeech} from "./text-to-speech";
 
@@ -6,8 +6,10 @@ import {TextToSpeech} from "./text-to-speech";
 interface ICurrentState {
     startTime: number;
     lastUpdate:number;
-    currentActivityIx: number;
+    currentActivity: IActivity | null;
     currentActivityStarted: number;
+    nextActivity: IActivity | null;
+    nextTime: number;
 }
 
 interface IViewState {
@@ -36,12 +38,15 @@ export class Controller {
     }
 
     public async runActivities() {
+        if (this.timerId) {
+            this.endWorkout();
+            return;
+        }
         this.audio.resume();
 
         this.state = <ICurrentState> {
             startTime: this.audio.now(),
             lastUpdate: 0,
-            currentActivityIx: -1,
             currentActivityStarted: -1,
         };
 
@@ -63,57 +68,52 @@ export class Controller {
             return;
         }
 
-        let current: IActivity | null = null;
-        let nextUp: IActivity | null = null;
-        let nextTime: number;
-
-        if (s.currentActivityIx < 0) {
-            s.currentActivityIx = -1;
+        if (s.lastUpdate === 0) {
+            s.nextActivity = this.model.nextActivity(null, null);
             s.currentActivityStarted = s.startTime;
-            nextTime = s.startTime;
+            s.nextTime = s.startTime;
             s.lastUpdate = s.startTime - 60;
-        } else {
-            current = this.model.workout[s.currentActivityIx];
-            nextTime = s.currentActivityStarted + current.durationSec;
-        }
-
-
-        if (s.currentActivityIx < this.model.workout.length - 1) {
-            nextUp = this.model.workout[s.currentActivityIx + 1];
         }
 
         const now = this.audio.now();
 
         const queueTimeSec = 5;
-        if ( (nextTime - now < queueTimeSec) && 
-            (s.lastUpdate <= nextTime - queueTimeSec) &&
-            (now > nextTime - queueTimeSec)
+        if ( (s.nextTime - now < queueTimeSec) && 
+            (s.lastUpdate <= s.nextTime - queueTimeSec) &&
+            (now > s.nextTime - queueTimeSec)
             ) {
 
-            if (nextUp) {
-               TextToSpeech.say(nextUp.name);   
+            if (s.nextActivity) {
+               TextToSpeech.say(s.nextActivity.name);   
             }
-            if (current && this.audio.pingSound && this.audio.dingSound) {
-                this.audio.playBuffer(this.audio.pingSound, nextTime - 3);
-                this.audio.playBuffer(this.audio.pingSound, nextTime - 2);
-                this.audio.playBuffer(this.audio.pingSound, nextTime - 1);
-                this.audio.playBuffer(this.audio.dingSound, nextTime);
+            if (s.currentActivity && this.audio.pingSound && this.audio.dingSound) {
+                this.audio.playBuffer(this.audio.pingSound, s.nextTime - 3);
+                this.audio.playBuffer(this.audio.pingSound, s.nextTime - 2);
+                this.audio.playBuffer(this.audio.pingSound, s.nextTime - 1);
+                this.audio.playBuffer(this.audio.dingSound, s.nextTime);
             }
         } 
 
-        if (nextTime <= now) {
-            s.currentActivityIx++;
-            if (current) {
-                s.currentActivityStarted += current.durationSec;
+        if (s.nextTime <= now) {
+            // Advance to next.
+            const prevAct = s.currentActivity;
+            s.currentActivity = s.nextActivity;
+            s.nextActivity = this.model.nextActivity(prevAct, s.currentActivity);
+
+            s.currentActivityStarted = s.nextTime;
+            if (s.currentActivity) {
+                s.nextTime = s.currentActivityStarted + s.currentActivity.durationSec;
             }
-            if (s.currentActivityIx >= this.model.workout.length) {
+            if (s.currentActivity === null) {
                 this.endWorkout();
             }
         }
 
-        this.viewModel.remainingTime = nextTime - now;
-        if (current) {
-            this.viewModel.activeId = current.id;
+        this.viewModel.remainingTime = s.nextTime - now;
+        if (s.currentActivity) {
+            if (s.currentActivity.type !== ActivityType.Rest) {
+                this.viewModel.activeId = s.currentActivity.id;
+            }
         } else {
             this.viewModel.activeId = -1;
         }
