@@ -4,6 +4,8 @@
     <!-- <img src="./assets/logo.png"> -->
     <activity-list/>
     <p>{{Math.max(Math.round(remainingTime),0)}}</p>
+    <button v-on:click="onExport">Export</button>
+    <input v-on:change="onFileChange" type="file" id="file-input" />
   </div>
 </template>
 
@@ -13,6 +15,7 @@ import ActivityList from "./ActivityList.vue";
 
 import { Component } from 'vue-property-decorator';
 import { theController } from './controller';
+import { Utils } from './utils';
 
 @Component({
   components: {
@@ -24,6 +27,33 @@ export default class App extends Vue {
     return theController.viewModel; 
   }
 
+  onExport() {
+    const data = theController.model.toJson();
+    Utils.download(data, 'activity.json', 'text/json');
+  }
+
+  onFileChange(event: Event) {
+    const target = event.target as HTMLInputElement;
+    if (!target){
+      return;
+    }
+    if (!(target.files && target.files.length)) {
+      return;
+    }
+    const file = target.files[0];
+
+    var reader = new FileReader();
+
+      reader.onload = ((e) => {
+        console.log(`Read`);
+        if (!e.target) return;
+        const result = e.target.result as string;
+        theController.model.fromJson(result);
+      });
+
+      // Read in the data
+      reader.readAsText(file);
+  }
 }
 </script>
 

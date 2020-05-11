@@ -32,6 +32,7 @@ import { Component } from 'vue-property-decorator';
   }
 })
 export default class ActivityList extends Vue {
+  public workout?: Array<IActivity>;
   data() { 
     return {
       workout: theController.model.workout,
@@ -49,12 +50,23 @@ export default class ActivityList extends Vue {
   }
 
   updated() {
-    console.log(`Udpated ${JSON.stringify(theController.model.workout)}`);
-  } 
+    //console.log(`Udpated ${JSON.stringify(theController.model.workout)}`);
+    console.log(`Udpated ${JSON.stringify(this.workout)}`);
+    if (this.workout !== theController.model.workout) {
+      // Draggable creates a copy of the array, rather than mutating.
+      if (this.workout) {
+        theController.model.workout = this.workout;
+      }
+    } 
+  }
 
   onGo() {
     console.log('Go!');
     theController.runActivities();
+  }
+
+  onSubmit() {
+
   }
 }
 </script>

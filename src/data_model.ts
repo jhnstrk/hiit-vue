@@ -16,6 +16,8 @@ export class ActivityModel {
     rest: IActivity;
     prep: IActivity;
 
+    private STORAGE_KEY = "hiit-super-1.0";
+
     constructor() {
         this.rest = { id: this.uid++, name: 'Rest', durationSec: 30, type: ActivityType.Rest };
         this.prep = { id: this.uid++, name: 'Get Ready', durationSec: 9,  type: ActivityType.Prep };
@@ -85,5 +87,60 @@ export class ActivityModel {
          console.log(`Bad activity`);
          return null;
 
+    }
+
+    public toJson(): string {
+        const obj = {
+            workout: this.workout,
+            rest: this.rest,
+            prep: this.prep,
+        };
+        return JSON.stringify(obj);
+    }
+
+    public fromJson(serialized: string): boolean {
+        let obj;
+        try {
+            obj = JSON.parse(serialized)
+        } catch(e) {
+            console.log(`${e}`);
+            return  false;
+        }
+        const workout = obj.workout as Array<IActivity>;
+        if (!workout) {
+            return false;
+        }
+        this.workout.splice(0, this.workout.length);
+        workout.forEach((item) => this.workout.push(item));
+        
+        const rest = obj.rest as IActivity;
+        if (rest) {
+            this.rest = rest;
+        }
+        const prep = obj.prep as IActivity;
+        if (prep) {
+            this.prep = obj.prep;
+        }
+
+        this.uid = this.workout.reduce(
+            (max,item) => item.id > max ? item.id : max,
+            this.uid
+            );
+
+        this.uid = Math.max(this.uid, this.prep.id + 1, this.rest.id + 1);
+        return true;
+    }
+
+    public save() {
+        localStorage.setItem(this.STORAGE_KEY, this.toJson());
+    }
+
+    public restore(): boolean {
+        const stored = localStorage.getItem(this.STORAGE_KEY);
+        if (!stored) {
+            return false;
+        }
+
+        return this.fromJson(stored);;
     }
 }

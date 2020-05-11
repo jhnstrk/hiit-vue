@@ -7,6 +7,7 @@ module.exports = {
     "rules": {
         '@typescript-eslint/array-type': ['warn', {default: 'generic'}],
         "indent": ["error", 2],
+        "no-multi-spaces": "error",
     },
     "extends": [
         'plugin:vue/vue3-recommended',
