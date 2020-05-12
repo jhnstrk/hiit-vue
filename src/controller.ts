@@ -58,7 +58,7 @@ export class Controller {
       clearInterval(this.timerId);
       this.timerId = undefined;
     }
-    this.timerId = setInterval(() => { this.updateState()}, 500);
+    this.timerId = setInterval(() => { this.updateState(); }, 500);
 
     this.updateState();
   }

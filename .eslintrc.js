@@ -5,7 +5,9 @@ module.exports = {
         parser: '@typescript-eslint/parser',
         extraFileExtensions: ['.vue'],
 	},
-    "plugins": ["import", "@typescript-eslint"],
+    "plugins": ["import",
+      "@typescript-eslint",
+    ],
     "rules": {
         // '@typescript-eslint/array-type': ['warn', {default: 'generic'}],
         // "indent": ["error", 2],
