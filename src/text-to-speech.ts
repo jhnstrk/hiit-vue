@@ -3,7 +3,6 @@
 // https://wicg.github.io/speech-api/#tts-section
 
 export class TextToSpeech {
-
   public static say(message: string) {
     const msg = new SpeechSynthesisUtterance(message);
     // const voices = window.speechSynthesis.getVoices();
@@ -15,9 +14,11 @@ export class TextToSpeech {
     msg.text = message;
     msg.lang = 'en-US';
 
-    msg.onend = ( (e) => {
-      console.log('Finished in ' + e.elapsedTime + ' seconds.');
+    msg.onend = ((e) => {
+      console.log(`Finished in ${e.elapsedTime} seconds.`);
     });
     window.speechSynthesis.speak(msg);
   }
 }
+
+export { TextToSpeech as default };

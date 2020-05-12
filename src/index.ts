@@ -1,21 +1,21 @@
-import "./style.css";
+import './style.css';
 
-import Vue from "vue";
-import App from "./App";
-import { theController } from "./controller";
+import Vue from 'vue';
+import App from './App.vue';
+import { theController } from './controller';
 
 Vue.config.productionTip = false;
 
 const vm = new Vue({
-  el: "#app",
-  template: "<App/>",
-  components: { App }
+  el: '#app',
+  components: { App },
+  template: '<App/>',
 });
 
 window.onload = () => {
   theController.initSound()
-  .then( ()=> {
-     // 
-     console.log('Sound ready');
-  });
-}
+    .then(() => {
+      //
+      console.log('Sound ready');
+    });
+};

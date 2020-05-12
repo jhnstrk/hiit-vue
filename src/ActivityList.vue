@@ -1,47 +1,79 @@
 <template>
-<div id="outer">
-<form @submit.prevent="onSubmit">
-  <div  id="thelist">
-<draggable v-model="workout" group="people" @start="drag=true" @end="drag=false">
-  <div v-for="element in workout" :key="element.id">
-     <div class="list-item" v-bind:class="{ active: state.activeId === element.id }">
-     <input v-model="element.name" :size="element.name.length">
-     <input v-model.number="element.durationSec" type="number" step="5" size="3">
-     <button v-on:click="onRemove( element.id )" v-bind:key="element.id">Remove</button>
-     </div>
+  <div id="outer">
+    <form @submit.prevent="onSubmit">
+      <div id="thelist">
+        <draggable
+          v-model="workout"
+          group="people"
+          @start="drag=true"
+          @end="drag=false"
+        >
+          <div
+            v-for="element in workout"
+            :key="element.id"
+          >
+            <div
+              class="list-item"
+              :class="{ active: state.activeId === element.id }"
+            >
+              <input
+                v-model="element.name"
+                :size="element.name.length"
+              >
+              <input
+                v-model.number="element.durationSec"
+                type="number"
+                step="5"
+                size="3"
+              >
+              <button
+                :key="element.id"
+                @click="onRemove( element.id )"
+              >
+                Remove
+              </button>
+            </div>
+          </div>
+        </draggable>
+      </div>
+      <button @click="onAdd">
+        New Item
+      </button>
+      <button
+        type="button"
+        @click="onGo"
+      >
+        Go
+      </button>
+    </form>
   </div>
-</draggable>
-  </div>
-  <button v-on:click="onAdd">New Item</button>
-  <button v-on:click="onGo" type="button">Go</button>
-</form>
-</div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+import { Component } from 'vue-property-decorator';
 // https://www.npmjs.com/package/vuedraggable
 import draggable from 'vuedraggable';
 import { IActivity } from './data_model';
 import { theController } from './controller';
-import { Component } from 'vue-property-decorator';
 
 @Component({
   components: {
     draggable,
-  }
+  },
 })
 export default class ActivityList extends Vue {
   public workout?: Array<IActivity>;
-  data() { 
+
+  data() {
     return {
       workout: theController.model.workout,
-      state: theController.viewModel
-    }; 
+      state: theController.viewModel,
+    };
   }
 
   onAdd() {
-      theController.model.newActivity();
+    theController.model.newActivity();
   }
 
   onRemove(id: number) {
@@ -50,14 +82,14 @@ export default class ActivityList extends Vue {
   }
 
   updated() {
-    //console.log(`Udpated ${JSON.stringify(theController.model.workout)}`);
+    // console.log(`Udpated ${JSON.stringify(theController.model.workout)}`);
     console.log(`Udpated ${JSON.stringify(this.workout)}`);
     if (this.workout !== theController.model.workout) {
       // Draggable creates a copy of the array, rather than mutating.
       if (this.workout) {
         theController.model.workout = this.workout;
       }
-    } 
+    }
   }
 
   onGo() {
@@ -84,7 +116,7 @@ input {
 */
 input[type=number]{
     width: 3em;
-} 
+}
 form {
   background-color: lightgray;
   width: fit-content;

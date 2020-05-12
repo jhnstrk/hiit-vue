@@ -2,29 +2,36 @@
   <div id="app">
     <p>Super-dooper HIIT helper</p>
     <!-- <img src="./assets/logo.png"> -->
-    <activity-list/>
-    <p>{{Math.max(Math.round(remainingTime),0)}}</p>
-    <button v-on:click="onExport">Export</button>
-    <input v-on:change="onFileChange" type="file" id="file-input" />
+    <activity-list />
+    <p>{{ Math.max(Math.round(remainingTime),0) }}</p>
+    <button @click="onExport">
+      Export
+    </button>
+    <input
+      id="file-input"
+      type="file"
+      @change="onFileChange"
+    >
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import ActivityList from "./ActivityList.vue";
-
 import { Component } from 'vue-property-decorator';
+
+import ActivityList from './ActivityList.vue';
+
 import { theController } from './controller';
 import { Utils } from './utils';
 
 @Component({
   components: {
     ActivityList,
-  }
+  },
 })
 export default class App extends Vue {
-    data() { 
-    return theController.viewModel; 
+  data() {
+    return theController.viewModel;
   }
 
   onExport() {
@@ -34,7 +41,7 @@ export default class App extends Vue {
 
   onFileChange(event: Event) {
     const target = event.target as HTMLInputElement;
-    if (!target){
+    if (!target) {
       return;
     }
     if (!(target.files && target.files.length)) {
@@ -42,17 +49,17 @@ export default class App extends Vue {
     }
     const file = target.files[0];
 
-    var reader = new FileReader();
+    const reader = new FileReader();
 
-      reader.onload = ((e) => {
-        console.log(`Read`);
-        if (!e.target) return;
-        const result = e.target.result as string;
-        theController.model.fromJson(result);
-      });
+    reader.onload = ((e) => {
+      console.log('Read');
+      if (!e.target) return;
+      const result = e.target.result as string;
+      theController.model.fromJson(result);
+    });
 
-      // Read in the data
-      reader.readAsText(file);
+    // Read in the data
+    reader.readAsText(file);
   }
 }
 </script>

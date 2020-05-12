@@ -1,13 +1,15 @@
 module.exports = {
-    "parser": "@typescript-eslint/parser",
+    "parser": "vue-eslint-parser",
     parserOptions: {
-		project: './tsconfig.json'
+        project: './tsconfig.json',
+        parser: '@typescript-eslint/parser',
+        extraFileExtensions: ['.vue'],
 	},
     "plugins": ["import", "@typescript-eslint"],
     "rules": {
-        '@typescript-eslint/array-type': ['warn', {default: 'generic'}],
-        "indent": ["error", 2],
-        "no-multi-spaces": "error",
+        // '@typescript-eslint/array-type': ['warn', {default: 'generic'}],
+        // "indent": ["error", 2],
+        // "no-multi-spaces": "error",
     },
     "extends": [
         'plugin:vue/vue3-recommended',
