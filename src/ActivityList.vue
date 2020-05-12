@@ -1,54 +1,3 @@
-<template>
-  <div id="outer">
-    <form @submit.prevent="onSubmit">
-      <div id="thelist">
-        <draggable
-          v-model="workout"
-          group="people"
-          @start="drag=true"
-          @end="drag=false"
-        >
-          <div
-            v-for="element in workout"
-            :key="element.id"
-          >
-            <div
-              class="list-item"
-              :class="{ active: state.activeId === element.id }"
-            >
-              <input
-                v-model="element.name"
-                :size="element.name.length"
-              >
-              <input
-                v-model.number="element.durationSec"
-                type="number"
-                step="5"
-                size="3"
-              >
-              <button
-                :key="element.id"
-                @click="onRemove( element.id )"
-              >
-                Remove
-              </button>
-            </div>
-          </div>
-        </draggable>
-      </div>
-      <button @click="onAdd">
-        New Item
-      </button>
-      <button
-        type="button"
-        @click="onGo"
-      >
-        Go
-      </button>
-    </form>
-  </div>
-</template>
-
 <script lang="ts">
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
@@ -102,6 +51,57 @@ export default class ActivityList extends Vue {
   }
 }
 </script>
+
+<template>
+  <div id="outer">
+    <form @submit.prevent="onSubmit">
+      <div id="thelist">
+        <draggable
+          v-model="workout"
+          group="people"
+          @start="drag=true"
+          @end="drag=false"
+        >
+          <div
+            v-for="element in workout"
+            :key="element.id"
+          >
+            <div
+              class="list-item"
+              :class="{ active: state.activeId === element.id }"
+            >
+              <input
+                v-model="element.name"
+                :size="element.name.length"
+              >
+              <input
+                v-model.number="element.durationSec"
+                type="number"
+                step="5"
+                size="3"
+              >
+              <button
+                :key="element.id"
+                @click="onRemove( element.id )"
+              >
+                Remove
+              </button>
+            </div>
+          </div>
+        </draggable>
+      </div>
+      <button @click="onAdd">
+        New Item
+      </button>
+      <button
+        type="button"
+        @click="onGo"
+      >
+        Go
+      </button>
+    </form>
+  </div>
+</template>
 
 <style scoped>
 p {

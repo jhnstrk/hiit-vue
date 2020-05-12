@@ -1,20 +1,3 @@
-<template>
-  <div id="app">
-    <p>Super-dooper HIIT helper</p>
-    <!-- <img src="./assets/logo.png"> -->
-    <activity-list />
-    <p>{{ Math.max(Math.round(remainingTime),0) }}</p>
-    <button @click="onExport">
-      Export
-    </button>
-    <input
-      id="file-input"
-      type="file"
-      @change="onFileChange"
-    >
-  </div>
-</template>
-
 <script lang="ts">
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
@@ -63,6 +46,23 @@ export default class App extends Vue {
   }
 }
 </script>
+
+<template>
+  <div id="app">
+    <p>Super-dooper HIIT helper</p>
+    <!-- <img src="./assets/logo.png"> -->
+    <activity-list />
+    <p>{{ Math.max(Math.round(remainingTime),0) }}</p>
+    <button @click="onExport">
+      Export
+    </button>
+    <input
+      id="file-input"
+      type="file"
+      @change="onFileChange"
+    >
+  </div>
+</template>
 
 <style>
 #app {
