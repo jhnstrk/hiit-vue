@@ -18,6 +18,10 @@ export class Utils {
       }, 0);
     }
   }
+
+  public static toTest(value: string): string {
+    return `${value} World`;
+  }
 }
 
 export { Utils as default };

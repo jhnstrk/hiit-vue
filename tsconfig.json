@@ -70,6 +70,7 @@
   },
   "include": [
     "./src/**/*.ts",
+    "./test/**/*.ts",
     "./src/**/*.vue"
   ],
   "files": [
