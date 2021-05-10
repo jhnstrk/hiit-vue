@@ -1,7 +1,7 @@
 
 export class Utils {
-  public static // Function to download data to a file
-  download(data:BlobPart, filename:string, type: string) {
+  // Function to download data to a file
+  public static download(data:BlobPart, filename:string, type: string) {
     const file = new Blob([data], { type });
     if (window.navigator.msSaveOrOpenBlob) { // IE10+
       window.navigator.msSaveOrOpenBlob(file, filename);

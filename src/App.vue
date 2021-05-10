@@ -1,4 +1,5 @@
 <script lang="ts">
+/* eslint-disable class-methods-use-this */
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 

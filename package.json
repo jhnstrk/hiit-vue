@@ -17,6 +17,7 @@
   "author": "John Stark <jhnstrk@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "tslib": "^1.11.1",
     "vue": "^2.6.11",
     "vue-property-decorator": "^8.4.2",
     "vuedraggable": "^2.23.2"
