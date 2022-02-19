@@ -21,7 +21,7 @@ export class EDAudioPlay {
   }
 
   async loadSoundAssets() {
-    return new Promise((resolve /* , reject */) => {
+    return new Promise<void>((resolve /* , reject */) => {
       this.pingSound = this.makeTone(EDAudioPlay.freqOfPianoKey(51), 0.25);
       this.dingSound = this.makeTone(EDAudioPlay.freqOfPianoKey(60), 0.5);
       resolve();
@@ -63,7 +63,6 @@ export class EDAudioPlay {
   }
 
   public playBuffer(thebuffer: AudioBuffer, time?: number): void {
-
     if (time && time < 0) {
       console.log(`Not playing sound with time ${time}`);
     }

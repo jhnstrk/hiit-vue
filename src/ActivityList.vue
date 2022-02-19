@@ -1,4 +1,5 @@
 <script lang="ts">
+/* eslint-disable class-methods-use-this */
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 // https://www.npmjs.com/package/vuedraggable
@@ -114,13 +115,15 @@ input {
   width: 5em;
 }
 */
-input[type=number]{
-    width: 3em;
+input[type=number] {
+  width: 3em;
 }
+
 form {
   background-color: lightgray;
   width: fit-content;
 }
+
 .active {
   background-color: aqua;
 }
@@ -131,20 +134,24 @@ form {
 }
 
 #outer {
-    width: 100%;
+  width: 100%;
+
   /* Firefox */
   display: -moz-box;
   -moz-box-pack: center;
   -moz-box-align: center;
+
   /* Safari and Chrome */
   display: -webkit-box;
   -webkit-box-pack: center;
   -webkit-box-align: center;
+
   /* W3C */
   display: box;
   box-pack: center;
   box-align: center;
 }
+
 /*
 .list-item {
   float: right;
