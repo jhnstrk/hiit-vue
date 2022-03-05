@@ -2,14 +2,14 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="<%=htmlWebpackPlugin.files.chunks.main.css %>">
+    <link rel="stylesheet" href="<%=htmlWebpackPlugin.files.css['main'] %>">
     <title>Sooper dooper HIIT App</title>
   </head>
     <body>
     <!-- Comment JDS -->
     <div id="app"></div>
 
-    <script src="<%= htmlWebpackPlugin.files.chunks.main.entry %>">
+    <script src="<%= htmlWebpackPlugin.files.js['main'] %>">
     </script>
   </body>
 </html>
