@@ -21,14 +21,14 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        // CSS
-        test: /\.css$/,
-        use: [
-              'vue-style-loader',
-              'style-loader',
-              MiniCssExtractPlugin.loader,
-              'css-loader',
-            ],
+        // SASS and CSS files from Vue Single File Components:
+        test: /\.vue\.(s?[ac]ss)$/,
+        use: ['vue-style-loader', 'css-loader', 'sass-loader']
+      },
+      {
+       // SASS and CSS files (standalone):
+       test: /(?<!\.vue)\.(s?[ac]ss)$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
       },
       {
         // Images
@@ -73,7 +73,9 @@ module.exports = {
   plugins: [
     new VueLoaderPlugin(),
     new MiniCssExtractPlugin({
-      filename: "style.[contenthash].css"
+      filename: "style.[contenthash].css",
+      // esModule: false,
+      // experimentalUseImportModule: true,
     }),
     new HtmlWebpackPlugin({
       inject: true,

@@ -9,7 +9,9 @@
     <!-- Comment JDS -->
     <div id="app"></div>
 
-    <script src="<%= htmlWebpackPlugin.files.js['main'] %>">
+    <% for (var chunk in htmlWebpackPlugin.files.js) { %>
+        <script src="<%= htmlWebpackPlugin.files.js[chunk]%>"></script>
+    <% } %>
     </script>
   </body>
 </html>
