@@ -74,11 +74,9 @@ module.exports = {
     new VueLoaderPlugin(),
     new MiniCssExtractPlugin({
       filename: "style.[contenthash].css",
-      // esModule: false,
-      // experimentalUseImportModule: true,
     }),
     new HtmlWebpackPlugin({
-      inject: true,
+      inject: false,
       hash: false,
       template: "./src/index.html",
       filename: "index.html"

@@ -2,16 +2,13 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="<%=htmlWebpackPlugin.files.css['main'] %>">
     <title>Sooper dooper HIIT App</title>
-  </head>
+    <%= htmlWebpackPlugin.tags.headTags %>
+     </head>
     <body>
     <!-- Comment JDS -->
     <div id="app"></div>
 
-    <% for (var chunk in htmlWebpackPlugin.files.js) { %>
-        <script src="<%= htmlWebpackPlugin.files.js[chunk]%>"></script>
-    <% } %>
-    </script>
+    <%= htmlWebpackPlugin.tags.bodyTags %>
   </body>
 </html>
