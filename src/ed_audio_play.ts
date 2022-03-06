@@ -65,6 +65,7 @@ export class EDAudioPlay {
   public playBuffer(thebuffer: AudioBuffer, time?: number): void {
     if (time && time < 0) {
       console.log(`Not playing sound with time ${time}`);
+      return;
     }
     // Get an AudioBufferSourceNode.
     // This is the AudioNode to use when we want to play an AudioBuffer
