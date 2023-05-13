@@ -1,7 +1,7 @@
 import { ActivityModel, IActivity, ActivityType } from './data_model';
 import { EDAudioPlay } from './ed_audio_play';
 import { TextToSpeech } from './text-to-speech';
-
+import * as Vue from 'vue';
 
 interface ICurrentState {
   startTime: number;
@@ -18,24 +18,20 @@ interface IViewState {
 }
 
 export class Controller {
-  public model: ActivityModel;
+  public model = Vue.reactive(new ActivityModel());
 
-  public viewModel: IViewState;
+  public viewModel  = Vue.reactive(<IViewState> {
+    remainingTime: 0,
+    activeId: -1,
+  });
 
-  public audio: EDAudioPlay;
+  public audio = new EDAudioPlay();
 
   private state?: ICurrentState;
 
   private timerId?: NodeJS.Timer;
 
-  constructor() {
-    this.model = new ActivityModel();
-    this.audio = new EDAudioPlay();
-    this.viewModel = <IViewState> {
-      remainingTime: 0,
-      activeId: -1,
-    };
-  }
+  // constructor() { }
 
   public async initSound() {
     await this.audio.loadSoundAssets();

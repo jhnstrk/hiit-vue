@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { VueLoaderPlugin}  = require('vue-loader')
+const webpack = require('webpack');
 
 module.exports = {
   entry: './src/index.ts',
@@ -57,10 +58,10 @@ module.exports = {
   },
   resolve: {
     extensions: [ '.tsx', '.ts', '.js', '.vue' ],
+    // Vue3 : https://stackoverflow.com/questions/50805384/module-not-found-error-cant-resolve-vue-path-not-correct
     alias: {
-      'vue$': 'vue/dist/vue.esm.js',
-      '@': path.resolve(__dirname,'src'),
-      'components': path.resolve(__dirname,'src/components'),
+        // Ref: https://github.com/vuejs/core/tree/main/packages/vue#bundler-build-feature-flags
+        'vue': 'vue/dist/vue.esm-bundler.js',
     }
   },
   devServer: {
@@ -80,6 +81,11 @@ module.exports = {
       hash: false,
       template: "./src/index.html",
       filename: "index.html"
+    }),
+    new webpack.DefinePlugin({
+      // https://github.com/vuejs/core/tree/main/packages/vue#bundler-build-feature-flags
+      __VUE_OPTIONS_API__: true,  // enable/disable Options API support, default: true)
+      __VUE_PROD_DEVTOOLS__: false, // enable/disable devtools support in production, default: false)
     }),
   ],
 };

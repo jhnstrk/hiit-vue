@@ -62,7 +62,7 @@
     /* Experimental Options */
     // TS1219: Experimental support for decorators is a feature that is subject to change in a future release. 
     //    Set the 'experimentalDecorators' option in your 'tsconfig' or 'jsconfig' to remove this warning.
-    "experimentalDecorators": true,        /* Enables experimental support for ES7 decorators. */
+    // "experimentalDecorators": true,        /* Enables experimental support for ES7 decorators. */
     // "emitDecoratorMetadata": true,         /* Enables experimental support for emitting type metadata for decorators. */
 
     /* Advanced Options */

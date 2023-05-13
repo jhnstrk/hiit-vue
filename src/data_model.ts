@@ -11,7 +11,7 @@ export interface IActivity {
 }
 
 export class ActivityModel {
-  workout: Array< IActivity >;
+  workout: Array< IActivity > = [];
 
   uid: number = 0;
 
@@ -28,7 +28,7 @@ export class ActivityModel {
     this.prep = {
       id: this.nextId(), name: 'Get Ready', durationSec: 9, type: ActivityType.Prep,
     };
-    this.workout = [
+    this.workout.push(
       {
         id: this.nextId(), name: 'Press ups', durationSec: 30, type: ActivityType.Workout,
       },
@@ -65,7 +65,7 @@ export class ActivityModel {
       {
         id: this.nextId(), name: 'Sprint on the spot', durationSec: 30, type: ActivityType.Workout,
       },
-    ];
+    );
   }
 
   public newActivity() : void {

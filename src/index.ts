@@ -1,16 +1,14 @@
 import './style.css';
 
-import Vue from 'vue';
+import * as Vue from 'vue';
 import App from './App.vue';
 import { theController } from './controller';
 
-Vue.config.productionTip = false;
+// Vue.config.productionTip = false;
 
-const vm = new Vue({
-  el: '#app',
-  components: { App },
-  template: '<App/>',
-});
+const app = Vue.createApp(App);
+
+app.mount('#app');
 
 window.onload = () => {
   theController.initSound()

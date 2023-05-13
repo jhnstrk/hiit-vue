@@ -1,56 +1,53 @@
 <script lang="ts">
-/* eslint-disable class-methods-use-this */
-import Vue from 'vue';
-import { Component } from 'vue-property-decorator';
+import * as Vue from 'vue';
 // https://www.npmjs.com/package/vuedraggable
 import draggable from 'vuedraggable';
-import { IActivity } from './data_model';
 import { theController } from './controller';
 
-@Component({
+export default Vue.defineComponent({
   components: {
     draggable,
   },
-})
-export default class ActivityList extends Vue {
-  public workout?: Array<IActivity>;
 
   data() {
     return {
+      drag: false,
       workout: theController.model.workout,
       state: theController.viewModel,
     };
-  }
+  },
 
-  onAdd() {
-    theController.model.newActivity();
-  }
+  methods: {
+    onAdd() {
+      theController.model.newActivity();
+    },
 
-  onRemove(id: number) {
-    console.log(`remove ${JSON.stringify(id)}`);
-    theController.model.removeActivity(id);
-  }
+    onRemove(id: number) {
+      console.log(`remove ${JSON.stringify(id)}`);
+      theController.model.removeActivity(id);
+    },
 
-  updated() {
+    updated() {
     // console.log(`Udpated ${JSON.stringify(theController.model.workout)}`);
-    console.log(`Udpated ${JSON.stringify(this.workout)}`);
-    if (this.workout !== theController.model.workout) {
+      console.log(`Udpated ${JSON.stringify(this.workout)}`);
+      if (this.workout !== theController.model.workout) {
       // Draggable creates a copy of the array, rather than mutating.
-      if (this.workout) {
-        theController.model.workout = this.workout;
+        if (this.workout) {
+          theController.model.workout = this.workout;
+        }
       }
-    }
-  }
+    },
 
-  onGo() {
-    console.log('Go!');
-    theController.runActivities();
-  }
+    onGo() {
+      console.log('Go!');
+      theController.runActivities();
+    },
 
-  onSubmit() {
+    onSubmit() {
 
-  }
-}
+    },
+  },
+});
 </script>
 
 <template>
@@ -59,14 +56,13 @@ export default class ActivityList extends Vue {
       <div id="thelist">
         <draggable
           v-model="workout"
+          item-key="id"
           group="people"
           @start="drag=true"
           @end="drag=false"
+          @change="updated"
         >
-          <div
-            v-for="element in workout"
-            :key="element.id"
-          >
+          <template #item="{element}">
             <div
               class="list-item"
               :class="{ active: state.activeId === element.id }"
@@ -88,7 +84,7 @@ export default class ActivityList extends Vue {
                 Remove
               </button>
             </div>
-          </div>
+          </template>
         </draggable>
       </div>
       <button @click="onAdd">
