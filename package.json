@@ -8,7 +8,7 @@
     "build": "vue-tsc && vite build",
     "dev": "vite",
     "preview": "vite preview",
-    "lint": "npx eslint --ext .js,.ts ./src/**/*.[tj]s",
+    "lint": "npx eslint --ext .js,.ts,.vue ./src/**/*.{[tj]s,vue}",
     "stylelint": "npx stylelint **/*.css",
     "test": "npx jest --coverage",
     "tsc": "tsc"
