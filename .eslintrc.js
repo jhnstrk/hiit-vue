@@ -12,6 +12,7 @@ module.exports = {
     // "indent": ["error", 2],
     // "no-multi-spaces": "error",
   },
+  reportUnusedDisableDirectives: true,
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',

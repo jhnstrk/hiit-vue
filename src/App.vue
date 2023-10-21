@@ -7,7 +7,6 @@ import { Utils } from './utils';
 
 export default Vue.defineComponent({
   components: {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     ActivityList,
   },
   data() {
