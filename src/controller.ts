@@ -29,7 +29,7 @@ export class Controller {
 
   private state?: ICurrentState;
 
-  private timerId?: NodeJS.Timer;
+  private timerId?: number;
 
   // constructor() { }
 
@@ -54,7 +54,8 @@ export class Controller {
       clearInterval(this.timerId);
       this.timerId = undefined;
     }
-    this.timerId = setInterval(() => {
+    // Explicitly window.setInterval because Node.js has a TimerID type.
+    this.timerId = window.setInterval(() => {
       this.updateState();
     }, 500);
 

@@ -8,7 +8,7 @@
     "build": "vue-tsc && vite build",
     "dev": "vite",
     "preview": "vite preview",
-    "lint": "eslint --ext .js,.ts,.vue ./src/**/*.{[tj]s,vue}",
+    "lint": "eslint --ext .js,.ts,.vue ./src/**/*.{[tj]s,vue} ./test/*.[tj]s",
     "prettier": "prettier --write \"**/*.+(js|ts|json)\"",
     "stylelint": "stylelint **/*.css",
     "test": "jest --coverage",

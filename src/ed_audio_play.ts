@@ -36,7 +36,7 @@ export class EDAudioPlay {
       xhr.onload = () => {
         const { status } = xhr;
         if (status === 200) {
-          resolve(xhr.response);
+          resolve(xhr.response as ArrayBuffer);
         } else {
           reject(new Error(`Status ${status}`));
         }
@@ -58,7 +58,7 @@ export class EDAudioPlay {
 
   public resume(): void {
     if (this.audioCtx) {
-      this.audioCtx.resume();
+      void this.audioCtx.resume();
     }
   }
 

@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  // NOTE: The "include" list overwrites the value in the base file.
+  "include": [
+    "./src/**/*.ts",
+    "./test/**/*.ts",
+    "./src/**/*.vue",
+    "vite.config.ts",
+    ".eslintrc.js",
+    "jest.config.js",
+    "vite.config.ts"
+  ]
+}

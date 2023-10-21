@@ -38,9 +38,10 @@ export default Vue.defineComponent({
       }
     },
 
-    onGo() {
+    onGo(): void {
       console.log('Go!');
-      theController.runActivities();
+      // Intentionally no await.
+      void theController.runActivities();
     },
 
     onSubmit() {

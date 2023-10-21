@@ -13,6 +13,11 @@ export interface IActivity {
   type: ActivityType;
 }
 
+export interface ISerializedData {
+  workout: Array<IActivity>;
+  rest: IActivity;
+  prep: IActivity;
+}
 export class ActivityModel {
   workout: Array<IActivity> = [];
 
@@ -185,25 +190,25 @@ export class ActivityModel {
   }
 
   public fromJson(serialized: string): boolean {
-    let obj;
+    let obj: ISerializedData;
     try {
-      obj = JSON.parse(serialized);
+      obj = JSON.parse(serialized) as ISerializedData;
     } catch (e) {
-      console.log(`${e}`);
+      console.log(`Parsing saved data failed: ${(e as Error)?.message}`);
       return false;
     }
-    const workout = obj.workout as Array<IActivity>;
+    const workout = obj.workout;
     if (!workout) {
       return false;
     }
     this.workout.splice(0, this.workout.length);
     workout.forEach((item) => this.workout.push(item));
 
-    const rest = obj.rest as IActivity;
+    const rest = obj.rest;
     if (rest) {
       this.rest = rest;
     }
-    const prep = obj.prep as IActivity;
+    const prep = obj.prep;
     if (prep) {
       this.prep = obj.prep;
     }

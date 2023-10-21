@@ -1,7 +1,8 @@
+/* eslint-env node */
 module.exports = {
   parser: 'vue-eslint-parser',
   parserOptions: {
-    project: './tsconfig.json',
+    project: './tsconfig-lint.json',
     parser: '@typescript-eslint/parser',
     extraFileExtensions: ['.vue'],
   },
@@ -12,6 +13,9 @@ module.exports = {
     // "no-multi-spaces": "error",
   },
   extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/recommended-type-checked',
     'plugin:vue/vue3-recommended',
     'airbnb-typescript/base',
     'prettier',
