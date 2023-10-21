@@ -14,9 +14,9 @@ export class TextToSpeech {
     msg.text = message;
     msg.lang = 'en-US';
 
-    msg.onend = ((e) => {
+    msg.onend = (e) => {
       console.log(`Finished in ${e.elapsedTime} seconds.`);
-    });
+    };
     window.speechSynthesis.speak(msg);
   }
 }

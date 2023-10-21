@@ -17,7 +17,7 @@ export class EDAudioPlay {
   // 49 is A-4.
   // https://en.wikipedia.org/wiki/Piano_key_frequencies
   private static freqOfPianoKey(n: number): number {
-    return (2.0 ** ((n - 49.0) / 12)) * 440;
+    return 2.0 ** ((n - 49.0) / 12) * 440;
   }
 
   async loadSoundAssets() {
@@ -80,16 +80,18 @@ export class EDAudioPlay {
     source.start(time);
   }
 
-  public now() : number {
+  public now(): number {
     return this.audioCtx.currentTime;
   }
 
   // Fill an audio buffer with a simple sin wave.
-  public makeTone(freqHz: number, durationSec: number) : AudioBuffer {
+  public makeTone(freqHz: number, durationSec: number): AudioBuffer {
     const sampleCount = this.audioCtx.sampleRate * durationSec;
 
     const aBuffer = this.audioCtx.createBuffer(
-      this.channels, sampleCount, this.audioCtx.sampleRate,
+      this.channels,
+      sampleCount,
+      this.audioCtx.sampleRate,
     );
 
     // Compute angular frequency, and adjust for sample rate.

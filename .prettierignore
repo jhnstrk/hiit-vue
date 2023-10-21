@@ -1,0 +1,3 @@
+# By default, Prettier looks for ./.gitignore and ./.prettierignore.
+# So this includes only files not already in gitignore.
+package-lock.json

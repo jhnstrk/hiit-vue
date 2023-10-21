@@ -11,9 +11,8 @@ const app = Vue.createApp(App);
 app.mount('#app');
 
 window.onload = () => {
-  theController.initSound()
-    .then(() => {
-      //
-      console.log('Sound ready');
-    });
+  theController.initSound().then(() => {
+    //
+    console.log('Sound ready');
+  });
 };

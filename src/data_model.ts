@@ -1,6 +1,9 @@
-
 export enum ActivityType {
-  Prep, Warmup, Workout, Rest, Cooldown,
+  Prep,
+  Warmup,
+  Workout,
+  Rest,
+  Cooldown,
 }
 
 export interface IActivity {
@@ -11,7 +14,7 @@ export interface IActivity {
 }
 
 export class ActivityModel {
-  workout: Array< IActivity > = [];
+  workout: Array<IActivity> = [];
 
   uid: number = 0;
 
@@ -23,68 +26,114 @@ export class ActivityModel {
 
   constructor() {
     this.rest = {
-      id: this.nextId(), name: 'Rest', durationSec: 30, type: ActivityType.Rest,
+      id: this.nextId(),
+      name: 'Rest',
+      durationSec: 30,
+      type: ActivityType.Rest,
     };
     this.prep = {
-      id: this.nextId(), name: 'Get Ready', durationSec: 9, type: ActivityType.Prep,
+      id: this.nextId(),
+      name: 'Get Ready',
+      durationSec: 9,
+      type: ActivityType.Prep,
     };
     this.workout.push(
       {
-        id: this.nextId(), name: 'Press ups', durationSec: 30, type: ActivityType.Workout,
+        id: this.nextId(),
+        name: 'Press ups',
+        durationSec: 30,
+        type: ActivityType.Workout,
       },
       {
-        id: this.nextId(), name: 'Pull ups', durationSec: 30, type: ActivityType.Workout,
+        id: this.nextId(),
+        name: 'Pull ups',
+        durationSec: 30,
+        type: ActivityType.Workout,
       },
       {
-        id: this.nextId(), name: 'Dips', durationSec: 30, type: ActivityType.Workout,
+        id: this.nextId(),
+        name: 'Dips',
+        durationSec: 30,
+        type: ActivityType.Workout,
       },
       {
-        id: this.nextId(), name: 'Leg raises', durationSec: 30, type: ActivityType.Workout,
+        id: this.nextId(),
+        name: 'Leg raises',
+        durationSec: 30,
+        type: ActivityType.Workout,
       },
       {
-        id: this.nextId(), name: 'Star jumps', durationSec: 30, type: ActivityType.Workout,
+        id: this.nextId(),
+        name: 'Star jumps',
+        durationSec: 30,
+        type: ActivityType.Workout,
       },
       {
-        id: this.nextId(), name: 'High knees running', durationSec: 30, type: ActivityType.Workout,
+        id: this.nextId(),
+        name: 'High knees running',
+        durationSec: 30,
+        type: ActivityType.Workout,
       },
       {
-        id: this.nextId(), name: 'Burpees', durationSec: 30, type: ActivityType.Workout,
+        id: this.nextId(),
+        name: 'Burpees',
+        durationSec: 30,
+        type: ActivityType.Workout,
       },
       {
-        id: this.nextId(), name: 'Squat thrusts', durationSec: 30, type: ActivityType.Workout,
+        id: this.nextId(),
+        name: 'Squat thrusts',
+        durationSec: 30,
+        type: ActivityType.Workout,
       },
       {
-        id: this.nextId(), name: 'Weight raises', durationSec: 30, type: ActivityType.Workout,
+        id: this.nextId(),
+        name: 'Weight raises',
+        durationSec: 30,
+        type: ActivityType.Workout,
       },
       {
-        id: this.nextId(), name: 'Lunges', durationSec: 30, type: ActivityType.Workout,
+        id: this.nextId(),
+        name: 'Lunges',
+        durationSec: 30,
+        type: ActivityType.Workout,
       },
       {
-        id: this.nextId(), name: 'Sit ups with weight', durationSec: 30, type: ActivityType.Workout,
+        id: this.nextId(),
+        name: 'Sit ups with weight',
+        durationSec: 30,
+        type: ActivityType.Workout,
       },
       {
-        id: this.nextId(), name: 'Sprint on the spot', durationSec: 30, type: ActivityType.Workout,
+        id: this.nextId(),
+        name: 'Sprint on the spot',
+        durationSec: 30,
+        type: ActivityType.Workout,
       },
     );
   }
 
-  public newActivity() : void {
-    this.workout.push(
-      {
-        id: this.nextId(), name: 'New activity', durationSec: 30, type: ActivityType.Workout,
-      },
-    );
+  public newActivity(): void {
+    this.workout.push({
+      id: this.nextId(),
+      name: 'New activity',
+      durationSec: 30,
+      type: ActivityType.Workout,
+    });
   }
 
   public removeActivity(id: number) {
     if (!this.workout) return;
-    const ix = this.workout.findIndex((i) => (i.id === id));
+    const ix = this.workout.findIndex((i) => i.id === id);
     if (ix >= 0) {
       this.workout.splice(ix, 1);
     }
   }
 
-  public nextActivity(prevAct: IActivity | null, currentAct?: IActivity | null): IActivity | null {
+  public nextActivity(
+    prevAct: IActivity | null,
+    currentAct?: IActivity | null,
+  ): IActivity | null {
     if (!currentAct) {
       if (this.prep) {
         return this.prep;
@@ -101,8 +150,10 @@ export class ActivityModel {
       return null;
     }
     if (currentAct.type === ActivityType.Workout) {
-      const workoutIx = this.workout.findIndex((item) => (item.id === currentAct.id));
-      if ((workoutIx === this.workout.length - 1) || (workoutIx === -1)) {
+      const workoutIx = this.workout.findIndex(
+        (item) => item.id === currentAct.id,
+      );
+      if (workoutIx === this.workout.length - 1 || workoutIx === -1) {
         return null;
       }
       return this.rest;
@@ -111,8 +162,10 @@ export class ActivityModel {
       if (!prevAct) {
         return null;
       }
-      const workoutIx = this.workout.findIndex((item) => (item.id === prevAct.id));
-      if ((workoutIx === this.workout.length - 1) || (workoutIx === -1)) {
+      const workoutIx = this.workout.findIndex(
+        (item) => item.id === prevAct.id,
+      );
+      if (workoutIx === this.workout.length - 1 || workoutIx === -1) {
         return null;
       }
       return this.workout[workoutIx + 1];

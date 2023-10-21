@@ -5,7 +5,7 @@ import * as Vue from 'vue';
 
 interface ICurrentState {
   startTime: number;
-  lastUpdate:number;
+  lastUpdate: number;
   currentActivity: IActivity | null;
   currentActivityStarted: number;
   nextActivity: IActivity | null;
@@ -20,7 +20,7 @@ interface IViewState {
 export class Controller {
   public model = Vue.reactive(new ActivityModel());
 
-  public viewModel  = Vue.reactive(<IViewState> {
+  public viewModel = Vue.reactive(<IViewState>{
     remainingTime: 0,
     activeId: -1,
   });
@@ -44,7 +44,7 @@ export class Controller {
     }
     this.audio.resume();
 
-    this.state = <ICurrentState> {
+    this.state = <ICurrentState>{
       startTime: this.audio.now(),
       lastUpdate: 0,
       currentActivityStarted: -1,
@@ -54,7 +54,9 @@ export class Controller {
       clearInterval(this.timerId);
       this.timerId = undefined;
     }
-    this.timerId = setInterval(() => { this.updateState(); }, 500);
+    this.timerId = setInterval(() => {
+      this.updateState();
+    }, 500);
 
     this.updateState();
   }
@@ -79,9 +81,10 @@ export class Controller {
     const now = this.audio.now();
 
     const queueTimeSec = 5;
-    if ((s.nextTime - now < queueTimeSec)
-            && (s.lastUpdate <= s.nextTime - queueTimeSec)
-            && (now > s.nextTime - queueTimeSec)
+    if (
+      s.nextTime - now < queueTimeSec &&
+      s.lastUpdate <= s.nextTime - queueTimeSec &&
+      now > s.nextTime - queueTimeSec
     ) {
       if (s.nextActivity) {
         TextToSpeech.say(s.nextActivity.name);
@@ -120,7 +123,7 @@ export class Controller {
     s.lastUpdate = now;
   }
 
-  endWorkout() : void {
+  endWorkout(): void {
     if (this.timerId) {
       clearInterval(this.timerId);
       this.timerId = undefined;
