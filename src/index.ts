@@ -11,12 +11,15 @@ const app = Vue.createApp(App);
 app.mount('#app');
 
 window.onload = () => {
-  theController.initSound().then(() => {
-    //
-    console.log('Sound ready');
-  }).catch((e) => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    console.error(`Error initializing sound ${e?.message}`);
-    throw e;
-  });
+  theController
+    .initSound()
+    .then(() => {
+      //
+      console.log('Sound ready');
+    })
+    .catch((e) => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      console.error(`Error initializing sound ${e?.message}`);
+      throw e;
+    });
 };
