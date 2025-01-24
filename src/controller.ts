@@ -37,6 +37,7 @@ export class Controller {
     await this.audio.loadSoundAssets();
   }
 
+  // eslint-disable-next-line  @typescript-eslint/require-await
   public async runActivities() {
     if (this.timerId) {
       this.endWorkout();
