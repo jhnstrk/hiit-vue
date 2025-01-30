@@ -1,8 +1,8 @@
 import eslint from '@eslint/js';
-import eslintConfigPrettier from 'eslint-config-prettier';
 import eslintPluginVue from 'eslint-plugin-vue';
 import globals from 'globals';
 import typescriptEslint from 'typescript-eslint';
+import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
 
 export default typescriptEslint.config(
   { ignores: ['*.d.ts', '**/coverage', '**/dist'] },
@@ -28,5 +28,5 @@ export default typescriptEslint.config(
       // your rules
     },
   },
-  eslintConfigPrettier,
+  eslintPluginPrettierRecommended,
 );

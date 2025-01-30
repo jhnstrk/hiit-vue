@@ -28,10 +28,10 @@ export default Vue.defineComponent({
     },
 
     updated() {
-    // console.log(`Udpated ${JSON.stringify(theController.model.workout)}`);
+      // console.log(`Udpated ${JSON.stringify(theController.model.workout)}`);
       console.log(`Udpated ${JSON.stringify(this.workout)}`);
       if (this.workout !== theController.model.workout) {
-      // Draggable creates a copy of the array, rather than mutating.
+        // Draggable creates a copy of the array, rather than mutating.
         if (this.workout) {
           theController.model.workout = this.workout;
         }
@@ -44,9 +44,7 @@ export default Vue.defineComponent({
       void theController.runActivities();
     },
 
-    onSubmit() {
-
-    },
+    onSubmit() {},
   },
 });
 </script>
@@ -59,44 +57,31 @@ export default Vue.defineComponent({
           v-model="workout"
           item-key="id"
           group="people"
-          @start="drag=true"
-          @end="drag=false"
+          @start="drag = true"
+          @end="drag = false"
           @change="updated"
         >
-          <template #item="{element}">
+          <template #item="{ element }">
             <div
               class="list-item"
               :class="{ active: state.activeId === element.id }"
             >
-              <input
-                v-model="element.name"
-                :size="element.name.length"
-              >
+              <input v-model="element.name" :size="element.name.length" />
               <input
                 v-model.number="element.durationSec"
                 type="number"
                 step="5"
                 size="3"
-              >
-              <button
-                :key="element.id"
-                @click="onRemove( element.id )"
-              >
+              />
+              <button :key="element.id" @click="onRemove(element.id)">
                 Remove
               </button>
             </div>
           </template>
         </draggable>
       </div>
-      <button @click="onAdd">
-        New Item
-      </button>
-      <button
-        type="button"
-        @click="onGo"
-      >
-        Go
-      </button>
+      <button @click="onAdd">New Item</button>
+      <button type="button" @click="onGo">Go</button>
     </form>
   </div>
 </template>
@@ -112,7 +97,7 @@ input {
   width: 5em;
 }
 */
-input[type=number] {
+input[type='number'] {
   width: 3em;
 }
 

@@ -9,10 +9,11 @@ export default Vue.defineComponent({
   components: {
     ActivityList,
   },
-  data() {
-  },
+  data() {},
   computed: {
-    remainingTime() { return theController.viewModel.remainingTime; },
+    remainingTime() {
+      return theController.viewModel.remainingTime;
+    },
   },
   methods: {
     onExport() {
@@ -32,12 +33,12 @@ export default Vue.defineComponent({
 
       const reader = new FileReader();
 
-      reader.onload = ((e) => {
+      reader.onload = (e) => {
         console.log('Read');
         if (!e.target) return;
         const result = e.target.result as string;
         theController.model.fromJson(result);
-      });
+      };
 
       // Read in the data
       reader.readAsText(file);
@@ -51,15 +52,9 @@ export default Vue.defineComponent({
     <p>Super-dooper HIIT helper</p>
     <!-- <img src="./assets/logo.png"> -->
     <activity-list />
-    <p>{{ Math.max(Math.round(remainingTime),0) }}</p>
-    <button @click="onExport">
-      Export
-    </button>
-    <input
-      id="file-input"
-      type="file"
-      @change="onFileChange"
-    >
+    <p>{{ Math.max(Math.round(remainingTime), 0) }}</p>
+    <button @click="onExport">Export</button>
+    <input id="file-input" type="file" @change="onFileChange" />
   </div>
 </template>
 
